@@ -29,25 +29,27 @@ class Server {
 
         this.server.on('listening', () => {
             let address = this.server.address();
-            let bind = (typeof address === 'string') ? `pipe ${address}` : `port ${address.port}`;
+            let bind =
+                typeof address === 'string'
+                    ? `pipe ${address}`
+                    : `port ${address.port}`;
             console.log(`Listening on port ${bind}`);
         });
 
         this.server.on('error', (error: NodeJS.ErrnoException) => {
-            if (error.syscall !== 'listen')
-                throw error;
+            if (error.syscall !== 'listen') throw error;
             console.error(error);
             process.exit(1);
         });
     }
 
     /**
-     * normalize port
+     * Normalize port
      * @param {number | string} val
      * @returns {number}
      */
-    private normalizePort(val: number|string): number {
-        let port: number = (typeof val === 'string') ? parseInt(val, 10) : val;
+    private normalizePort(val: number | string): number {
+        let port: number = typeof val === 'string' ? parseInt(val, 10) : val;
         return port;
     }
 }
